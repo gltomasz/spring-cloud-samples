@@ -1,0 +1,56 @@
+version: '3.5'
+services:
+  eureka-server-1:
+    build:
+      context: service-registry
+    image: spring-examples/service-registry
+    ports:
+    - "8080:8080"
+    environment:
+    - EUREKA_URI=http://eureka-server-2:8080/eureka
+    - EUREKA_HOST=eureka-server-1
+    hostname: eureka-server-1
+  eureka-server-2:
+    build:
+      context: service-registry
+    image: spring-examples/service-registry
+    ports:
+    - "8081:8080"
+    environment:
+    - EUREKA_URI=http://eureka-server-1:8080/eureka
+    - EUREKA_HOST=eureka-server-2
+    hostname: eureka-server-2
+
+  zone-info-1:
+    build:
+      context: zone-info
+    image: spring-examples/zone-info
+    environment:
+    - EUREKA_URI=http://eureka-server-1:8080/eureka
+    - ZONE_NAME=zone-1
+  zone-info-2:
+    build:
+      context: zone-info
+    image: spring-examples/zone-info
+    environment:
+    - EUREKA_URI=http://eureka-server-2:8080/eureka
+    - ZONE_NAME=zone-2
+
+  api-gateway-1:
+    build:
+      context: gateway
+    image: spring-examples/gateway
+    ports:
+    - "9090:8080"
+    environment:
+    - EUREKA_URI=http://eureka-server-1:8080/eureka
+    - ZONE_NAME=zone-1
+  api-gateway-2:
+    build:
+      context: gateway
+    image: spring-examples/gateway
+    ports:
+    - "9091:8080"
+    environment:
+    - EUREKA_URI=http://eureka-server-2:8080/eureka
+    - ZONE_NAME=zone-2
