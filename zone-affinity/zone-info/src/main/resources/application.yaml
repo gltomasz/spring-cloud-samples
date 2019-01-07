@@ -5,7 +5,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-      preferSameZoneEureka: true
   instance:
     preferIpAddress: true
     metadata-map.zone: ${ZONE_NAME}
