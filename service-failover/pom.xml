@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example.spring</groupId>
-  <artifactId>example-zone-affinity</artifactId>
+  <artifactId>example-service-failover</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -92,7 +92,7 @@
         </profile>
     </profiles>
     <modules>
-        <module>zone-info</module>
+        <module>authentication</module>
         <module>service-registry</module>
         <module>gateway</module>
     </modules>

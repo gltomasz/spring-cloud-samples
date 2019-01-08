@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+
+  auth-service:
+    build:
+      context: authentication
+    image: spring-examples/authentication
+    environment:
+    - EUREKA_URI=http://eureka-server:8080/eureka
+
+  eureka-server:
+    build:
+      context: service-registry
+    image: spring-examples/service-registry
+    ports:
+    - "8080:8080"
+    environment:
+    - EUREKA_URI=http://eureka-server:8080/eureka
+    - EUREKA_HOST=eureka-server
+    hostname: eureka-server
+
+  api-gateway:
+    build:
+      context: gateway
+    image: spring-examples/gateway
+    ports:
+    - "9090:8080"
+    environment:
+    - EUREKA_URI=http://eureka-server:8080/eureka
