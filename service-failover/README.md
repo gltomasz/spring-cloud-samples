@@ -1,18 +1,23 @@
-Service failover and load balancing using Netflix Zuul.
+##Service failover and load balancing using Netflix Zuul
  
  ![](docs/deployment.png)
 
 For failover to work properly spring-retry dependency inclusion is mandatory.
 
-`<dependency>
+```xml
+<dependency>
     <groupId>org.springframework.retry</groupId>
     <artifactId>spring-retry</artifactId>
-</dependency>`
+</dependency>
+```
 
-Also by default only GET request are retried. For retrying other type request we must include property:
+Also by default only GET request are retried. For retrying other type of requests we must include property:
 
 `ribbon:
    OkToRetryOnAllOperations: true`
+
+
+###Testing:
 
  Build:  
  `./mvnw clean package -P dockerize`
