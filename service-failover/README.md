@@ -14,6 +14,9 @@ For failover to work properly spring-retry dependency inclusion is mandatory.
 Also by default only GET request are retried. For retrying other type of requests we must include additional properties in Zull config:
 
 ```
+zuul:
+  retryable: true
+
 ribbon:
   OkToRetryOnAllOperations: true
   MaxAutoRetries: 1 #Total nymber of retries on the same server
