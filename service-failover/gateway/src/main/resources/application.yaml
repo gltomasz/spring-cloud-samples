@@ -14,3 +14,5 @@ zuul:
 
 ribbon:
   OkToRetryOnAllOperations: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 3
