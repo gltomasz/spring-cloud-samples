@@ -16,9 +16,10 @@ Also by default only GET request are retried. For retrying other type of request
 ```
 ribbon:
   OkToRetryOnAllOperations: true
-  MaxAutoRetries: 1 #How many times retries on the same server
+  MaxAutoRetries: 1 #Total nymber of retries on the same server
   MaxAutoRetriesNextServer: 3 #How many servers to try with retry
 ```
+The above configuration overall retries count will be 3.
 
 Better explanation of retry properties [here](http://ryanjbaxter.com/cloud/spring%20cloud/spring/2017/03/15/retrying-http-requests-in-spring-cloud-netflix.html).
 
