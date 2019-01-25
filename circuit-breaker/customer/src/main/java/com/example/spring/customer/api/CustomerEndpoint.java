@@ -5,6 +5,8 @@ import com.example.spring.customer.domain.CustomerFacade;
 import com.example.spring.customer.api.exception.NotFoundException;
 import com.example.spring.customer.domain.dto.OrderDto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import java.util.List;
 class CustomerEndpoint {
 
     private CustomerFacade customerFacade;
+    private Logger logger = LoggerFactory.getLogger(CustomerEndpoint.class);
 
     CustomerEndpoint(CustomerFacade customerFacade) {
         this.customerFacade = customerFacade;
@@ -29,10 +32,14 @@ class CustomerEndpoint {
     @GetMapping(path = "/customer/{id}/orders")
     @HystrixCommand(fallbackMethod = "reliable")
     List<OrderDto> ordersForCustomer(@PathVariable("id") Long customerId) {
-        return customerFacade.ordersForCustomer(customerId);
+        logger.info("Trying to get orders for customer {}" , customerId);
+        List<OrderDto> orderDtos = customerFacade.ordersForCustomer(customerId);
+        logger.info("Returning orders for customer {}", customerId);
+        return orderDtos;
     }
 
     List<OrderDto> reliable(Long customerId) {
+        logger.info("Getting empty list");
         return Collections.emptyList();
     }
 
